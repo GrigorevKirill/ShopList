@@ -52,7 +52,7 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>
         } else {
             "Not active"
         }
-        viewHolder.tvName.text = "${shopItem.name} $status"
+        viewHolder.tvName.text = shopItem.name
         viewHolder.tvCount.text = shopItem.count.toString()
         viewHolder.view.setOnLongClickListener {
             shopItemOnLongClickListener?.invoke(shopItem)

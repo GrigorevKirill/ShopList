@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">ShopList</string>
     <string name="add_shop_item_content_description">add new shop item</string>
+    <string name="bt_save">Сохранить</string>
+    <string name="et_count">Количество:</string>
+    <string name="et_name">Название:</string>
+    <string name="error_input_name">Поле не может быть пустым</string>
+    <string name="error_input_count">Ошибка ввода</string>
 </resources>
