@@ -1,8 +1,10 @@
 package com.griga.shoplist.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +25,23 @@ class ShopItemFragment : Fragment() {
     private lateinit var btSave: Button
     private lateinit var viewModel: ShopItemViewModel
 
+    private lateinit var onEditingFinishedListener: OnEditingFinishedListener
+
     private var shopItemId: Int = ShopItem.UNDEFINED_ID
     private var screenMode: String = MODE_UNKNOWN
 
+    override fun onAttach(context: Context) {
+        Log.d("ShopItemFragment", "onAttach")
+        super.onAttach(context)
+        if (context is OnEditingFinishedListener) {
+            onEditingFinishedListener = context
+        } else {
+            throw RuntimeException("Activity must implement onEditingFinishedListener")
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("ShopItemFragment", "onCreate")
         super.onCreate(savedInstanceState)
         parseArguments()
     }
@@ -36,11 +51,13 @@ class ShopItemFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("ShopItemFragment", "onCreateView")
         return inflater.inflate(R.layout.shop_item_fragment, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("ShopItemFragment", "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
         viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
@@ -55,6 +72,41 @@ class ShopItemFragment : Fragment() {
         checkIfFinished()
     }
 
+    override fun onStart() {
+        Log.d("ShopItemFragment", "onStart")
+        super.onStart()
+    }
+
+    override fun onResume() {
+        Log.d("ShopItemFragment", "onResume")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Log.d("ShopItemFragment", "onPause")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d("ShopItemFragment", "onStop")
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        Log.d("ShopItemFragment", "onDestroyView")
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        Log.d("ShopItemFragment", "onDestroy")
+        super.onDestroy()
+    }
+
+    override fun onDetach() {
+        Log.d("ShopItemFragment", "onDestroy")
+        super.onDetach()
+    }
+
     private fun initViews(view: View) {
         tilName = view.findViewById(R.id.til_name)
         tilCount = view.findViewById(R.id.til_count)
@@ -65,7 +117,7 @@ class ShopItemFragment : Fragment() {
 
     private fun checkIfFinished() {
         viewModel.readyToFinish.observe(viewLifecycleOwner) {
-            activity?.onBackPressedDispatcher?.onBackPressed()
+            onEditingFinishedListener.onEditFinished()
         }
     }
 
@@ -179,6 +231,10 @@ class ShopItemFragment : Fragment() {
                 }
             }
         }
+    }
+
+    interface OnEditingFinishedListener {
+        fun onEditFinished()
     }
 
 

@@ -12,7 +12,7 @@ import com.griga.shoplist.R
 import com.griga.shoplist.databinding.ActivityShopItemBinding
 import com.griga.shoplist.domain.ShopItem
 
-class ShopItemActivity : AppCompatActivity() {
+class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
     private var shopItemId = ShopItem.UNDEFINED_ID
     private var screenMode = MODE_UNKNOWN
@@ -26,6 +26,10 @@ class ShopItemActivity : AppCompatActivity() {
         }
     }
 
+    override fun onEditFinished() {
+        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+        finish()
+    }
 
     private fun launchRightMode() {
         val fragment = when (screenMode) {
