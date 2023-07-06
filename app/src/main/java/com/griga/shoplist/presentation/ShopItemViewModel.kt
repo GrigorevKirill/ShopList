@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.griga.shoplist.data.ShopListRepositoryImpl
+import com.griga.shoplist.databinding.ShopItemFragmentBinding
 import com.griga.shoplist.domain.*
 
 class ShopItemViewModel(application: Application) : AndroidViewModel(application) {
